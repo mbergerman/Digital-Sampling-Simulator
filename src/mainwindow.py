@@ -1,6 +1,5 @@
 from src.ui.mainwindow import *
 import numpy as np
-from numpy import linspace, logspace, cos, sin, heaviside, log10, floor, zeros, ones, pi, diff, unwrap
 import sys
 import os
 from PyQt5 import QtGui, QtWidgets
