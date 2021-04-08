@@ -198,6 +198,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.plot_Xout:
             plt.plot(self.t_steady, self.xout, label="Señal de Salida")
 
+        plt.grid(which='both', axis='both')
         plt.legend()
 
     def plot_spectrum(self):
@@ -215,6 +216,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.plot_Xout:
             plt.semilogy(rfftfreq(len(self.xout), 1 / self.fd), 1 / len(self.xout) * np.abs(rfft(self.xout)), label="Señal de Salida")
 
+        plt.grid(which='both', axis='both')
         plt.legend()
 
     def plot_xin(self):
