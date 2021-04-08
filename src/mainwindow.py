@@ -124,6 +124,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.sampling_data.dc = self.sampling_dc_input.value() / 100
 
     def run_simulation(self):
+        if plt.get_fignums():
+            plt.close()
+
         # Error messages
         if not self.warnings():
             return False
@@ -172,10 +175,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         return True
 
     def plot_curves(self):
-        if plt.get_fignums():
-            plt.close()
 
-        plot1 = plt.figure(1)
+        self.plot_spectrum()
+        self.plot_time()
+
+        plt.show()
+
+    def plot_time(self):
+
+        plt.figure(1)
         if self.plot_aa and self.toggle_antialias.isChecked():
             plt.plot(self.t_steady, self.x_steady, label="Salida del Filtro Anti-Alias")
         if self.plot_ak and self.toggle_analogkey.isChecked():
@@ -189,12 +197,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             plt.plot(self.t_steady, self.xout, label="Señal de Salida")
 
         plt.legend()
-        self.plot_spectrum()
-        plt.show()
 
     def plot_spectrum(self):
 
-        plot2 = plt.figure(2)
+        plt.figure(2)
         if self.plot_aa and self.toggle_antialias.isChecked():
             plt.semilogy(rfftfreq(len(self.x_steady), 1 / self.fd), 1 / len(self.x_steady) * np.abs(rfft(self.x_steady)), label="Salida del Filtro Anti-Alias")
         if self.plot_ak and self.toggle_analogkey.isChecked():
@@ -214,35 +220,35 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if not self.warnings():
             return False
         self.plot_Xin = not self.plot_Xin
-        self.plot_curves()
+        self.run_simulation()
 
     def plot_xout(self):
         # Error messages
         if not self.warnings():
             return False
         self.plot_Xout = not self.plot_Xout
-        self.plot_curves()
+        self.run_simulation()
 
     def plot_AAout(self):
         # Error messages
         if not self.warnings():
             return False
         self.plot_aa = not self.plot_aa
-        self.plot_curves()
+        self.run_simulation()
 
     def plot_SHout(self):
         # Error messages
         if not self.warnings():
             return False
         self.plot_sh = not self.plot_sh
-        self.plot_curves()
+        self.run_simulation()
 
     def plot_AKout(self):
         # Error messages
         if not self.warnings():
             return False
         self.plot_ak = not self.plot_ak
-        self.plot_curves()
+        self.run_simulation()
 
     def warnings(self):
         out = True
