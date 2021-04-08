@@ -176,8 +176,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def plot_curves(self):
 
-        self.plot_spectrum()
-        self.plot_time()
+        if self.spectrum_check.isChecked():
+            self.plot_spectrum()
+        else:
+            self.plot_time()
 
         plt.show()
 
