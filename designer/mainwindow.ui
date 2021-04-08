@@ -100,10 +100,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>T</string>
+       <string>fs</string>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="samplinc_dc_input">
+     <widget class="QDoubleSpinBox" name="sampling_dc_input">
       <property name="geometry">
        <rect>
         <x>150</x>
@@ -132,38 +132,8 @@
        <number>3</number>
       </property>
       <property name="maximum">
-       <double>9999.989999999999782</double>
+       <double>99999999.989999994635582</double>
       </property>
-     </widget>
-     <widget class="QComboBox" name="sampling_period_multiplier">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>170</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>ns</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>μs</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>ms</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>s</string>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label_15">
       <property name="geometry">
@@ -190,6 +160,31 @@
       <property name="text">
        <string>Update Sampling</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="sampling_period_multiplier">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>170</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>mHz</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hz</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>kHz</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_3">
@@ -222,7 +217,7 @@
        <string>Update Xin(t)</string>
       </property>
      </widget>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="input_tabs">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -240,7 +235,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="sine_tab">
        <attribute name="title">
@@ -303,8 +298,11 @@
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="minimum">
+         <double>-360.000000000000000</double>
+        </property>
         <property name="maximum">
-         <double>259.990000000000009</double>
+         <double>360.000000000000000</double>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="sine_vp_input">
@@ -450,8 +448,14 @@
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="minimum">
+         <double>-360.000000000000000</double>
+        </property>
         <property name="maximum">
-         <double>359.990000000000009</double>
+         <double>360.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
         </property>
        </widget>
        <widget class="QComboBox" name="u_sine_vp_multiplier">
@@ -780,124 +784,6 @@
         </item>
        </widget>
       </widget>
-      <widget class="QWidget" name="exp_tab">
-       <attribute name="title">
-        <string>Exponential</string>
-       </attribute>
-       <widget class="QComboBox" name="exp_sigma_multiplier">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>150</y>
-          <width>101</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>m(s^-1)</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>s^-1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>k(s^-1)</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="exp_vp_multiplier">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>110</y>
-          <width>101</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>mV</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>V</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QDoubleSpinBox" name="exp_vp_input">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>110</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>110</y>
-          <width>41</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vp</string>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="exp_sigma_input">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>150</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="maximum">
-         <double>9999999.990000000223517</double>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_11">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>30</y>
-          <width>291</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Xin(t) = Vp * e^(-σ * t)</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_12">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>150</y>
-          <width>31</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>σ</string>
-        </property>
-       </widget>
-      </widget>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_4">
@@ -917,7 +803,7 @@
      <property name="title">
       <string>Sampling Simulator - Graphical Output</string>
      </property>
-     <widget class="QPushButton" name="plot_xin">
+     <widget class="QPushButton" name="plot_xinB">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -987,9 +873,9 @@
      <widget class="QPushButton" name="plot_akout">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>820</x>
         <y>80</y>
-        <width>121</width>
+        <width>111</width>
         <height>51</height>
        </rect>
       </property>
@@ -1005,7 +891,7 @@
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>690</x>
         <y>60</y>
         <width>111</width>
         <height>81</height>
@@ -1036,9 +922,9 @@
      <widget class="QPushButton" name="plot_shout">
       <property name="geometry">
        <rect>
-        <x>820</x>
+        <x>550</x>
         <y>80</y>
-        <width>111</width>
+        <width>121</width>
         <height>51</height>
        </rect>
       </property>
@@ -1054,7 +940,7 @@
      <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
-        <x>690</x>
+        <x>420</x>
         <y>60</y>
         <width>111</width>
         <height>81</height>
@@ -1082,7 +968,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="plot_xout">
+     <widget class="QPushButton" name="plot_xoutB">
       <property name="geometry">
        <rect>
         <x>1110</x>
@@ -1178,7 +1064,7 @@
      <widget class="QLabel" name="label_20">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>800</x>
         <y>100</y>
         <width>21</width>
         <height>16</height>
@@ -1222,7 +1108,7 @@
      <widget class="QLabel" name="label_22">
       <property name="geometry">
        <rect>
-        <x>800</x>
+        <x>530</x>
         <y>100</y>
         <width>21</width>
         <height>16</height>
