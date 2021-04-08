@@ -33,6 +33,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.xak = []
         self.N = 50000  # cantidad de muestras
         self.t = []
+        self.fd = 0
         self.t_steady = []
         self.x_steady = []
 
@@ -131,12 +132,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.type == "sine_tab":
             self.t = linspace(0, 10 * (1 / self.sampling_data.f), self.N, endpoint=False)
             self.xin = [self.sampling_data.sine(i) for i in self.t]
+            self.fd = self.N / 10 * (1 / self.sampling_data.f)
         elif self.type == "u_sine_tab":
             self.t = linspace(0, 100 * (1 / self.sampling_data.f), self.N, endpoint=False)
             self.xin = [self.sampling_data.u_sine(i) for i in self.t]
+            self.fd = self.N / 10 * (1 / self.sampling_data.f)
         elif self.type == "am_tab":
             self.t = linspace(0, 10 * (1 / (min(self.sampling_data.fc, self.sampling_data.fm))), self.N, endpoint=False)
             self.xin = [self.sampling_data.AM(i) for i in self.t]
+            self.fd = self.N / 10 * (1 / (min(self.sampling_data.fc, self.sampling_data.fm)))
 
         # X after anti alias filter
         if self.toggle_antialias.isChecked():
@@ -171,6 +175,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if plt.get_fignums():
             plt.close()
 
+        plot1 = plt.figure(1)
         if self.plot_aa and self.toggle_antialias.isChecked():
             plt.plot(self.t_steady, self.x_steady, label="Salida del Filtro Anti-Alias")
         if self.plot_ak and self.toggle_analogkey.isChecked():
@@ -184,7 +189,25 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             plt.plot(self.t_steady, self.xout, label="Señal de Salida")
 
         plt.legend()
+        self.plot_spectrum()
         plt.show()
+
+    def plot_spectrum(self):
+
+        plot2 = plt.figure(2)
+        if self.plot_aa and self.toggle_antialias.isChecked():
+            plt.semilogy(rfftfreq(len(self.x_steady), 1 / self.fd), 1 / len(self.x_steady) * np.abs(rfft(self.x_steady)), label="Salida del Filtro Anti-Alias")
+        if self.plot_ak and self.toggle_analogkey.isChecked():
+            plt.semilogy(rfftfreq(len(self.xak), 1 / self.fd), 1 / len(self.xak) * np.abs(rfft(self.xak)), label="Salida de la Llave Analogica")
+        if self.plot_sh and self.toggle_SH.isChecked():
+            plt.semilogy(rfftfreq(len(self.xsh), 1 / self.fd), 1 / len(self.xsh) * np.abs(rfft(self.xsh)), label="Salida del Sample & Hold")
+        if self.plot_Xin:
+            xin = self.xin[len(self.xin) // 3: -1]
+            plt.semilogy(rfftfreq(len(xin), 1 / self.fd), 1 / len(xin) * np.abs(rfft(xin)), label="Señal de Entrada")
+        if self.plot_Xout:
+            plt.semilogy(rfftfreq(len(self.xout), 1 / self.fd), 1 / len(self.xout) * np.abs(rfft(self.xout)), label="Señal de Salida")
+
+        plt.legend()
 
     def plot_xin(self):
         # Error messages
